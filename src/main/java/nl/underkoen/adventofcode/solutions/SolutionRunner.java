@@ -20,7 +20,7 @@ import java.util.*;
         optionListHeading = "%n@|bold,underline Options|@:%n")
 public class SolutionRunner implements Runnable {
     @Option(names = {"-p", "--package"}, description = "The package where the solutions are found.", showDefaultValue = Help.Visibility.ALWAYS)
-    String pkg = Solution.class.getPackageName();
+    String pkg = "nl.djurq.adventofcode.solutions";
 
     @Option(names = {"-y", "--year"}, description = "Filter solutions on this year.")
     Integer year;

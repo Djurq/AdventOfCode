@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package nl.underkoen.adventofcode.solutions.year2019;
+package nl.djurq.adventofcode.solutions.year2019;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,8 +25,7 @@ public class Day01 extends Solution {
     protected void run(List<String> input) {
         this.a = 0L;
         this.b = 0L;
-        List<String> input2 = new ArrayList();
-        input2.add("1969");
+
         Iterator var3 = input.iterator();
 
         while(var3.hasNext()) {

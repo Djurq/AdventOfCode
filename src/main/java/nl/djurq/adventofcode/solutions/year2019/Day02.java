@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package nl.underkoen.adventofcode.solutions.year2019;
+package nl.djurq.adventofcode.solutions.year2019;
 
 import java.util.List;
 import java.util.Objects;

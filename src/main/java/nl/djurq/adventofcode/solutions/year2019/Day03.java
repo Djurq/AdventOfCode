@@ -1,4 +1,4 @@
-package nl.underkoen.adventofcode.solutions.year2019;
+package nl.djurq.adventofcode.solutions.year2019;
 
 import lombok.Getter;
 import nl.underkoen.adventofcode.general.Position;
@@ -23,6 +23,7 @@ public class Day03 extends Solution {
         Map<Position, Integer> wire2 = new HashMap<>();
         HashSet<Position> samePositions = new HashSet<>();
 
+
         String[] instructionsWire1 = input.get(0).split(",");
         String[] instructionsWire2 = input.get(1).split(",");
 
@@ -32,19 +33,19 @@ public class Day03 extends Solution {
         int xCoordWire2 = 0;
         int yCoordWire2 = 0;
 
-
+        int stepsWire1 = 1;
         for (String s : instructionsWire1) {
             char direction = s.charAt(0);
             int maxLengthString = s.length();
             int movement = Integer.parseInt(s.substring(1, maxLengthString));
-            //400
             if (direction == 'L') {
 
 
                 for ( int i1 = 0;i1 < movement; i1++) {
                     xCoordWire1 -= 1;
                     Position Wire1 = new Position(xCoordWire1, yCoordWire1);
-                    wire1.put(Wire1, i1);
+                    wire1.put(Wire1, stepsWire1);
+                    stepsWire1++;
                 }
             }
 
@@ -53,7 +54,9 @@ public class Day03 extends Solution {
                 for (int i1 = 0; i1 < movement; i1++) {
                     xCoordWire1 += 1;
                     Position Wire1 = new Position(xCoordWire1, yCoordWire1);
-                    wire1.put(Wire1, i1);
+                    wire1.put(Wire1, stepsWire1);
+                    stepsWire1++;
+
                 }
             }
 
@@ -62,7 +65,8 @@ public class Day03 extends Solution {
                 for ( int i1 = 0; i1 < movement; i1++) {
                     yCoordWire1 -= 1;
                     Position Wire1 = new Position(xCoordWire1, yCoordWire1);
-                    wire1.put(Wire1, i1);
+                    wire1.put(Wire1, stepsWire1);
+                    stepsWire1++;
                 }
 
             }
@@ -72,24 +76,26 @@ public class Day03 extends Solution {
                 for ( int i1 = 0; i1 < movement; i1++) {
                     yCoordWire1 += 1;
                     Position Wire1 = new Position(xCoordWire1, yCoordWire1);
-                    wire1.put(Wire1, i1);
+                    wire1.put(Wire1, stepsWire1);
+                    stepsWire1++;
                 }
 
             }
         }
-
+        int stepsWire2 = 1;
         for (String s : instructionsWire2) {
-            char direction = s.charAt(0);
-            int maxLengthString = s.length();
-            int movement = Integer.parseInt(s.substring(1, maxLengthString));
+                char direction = s.charAt(0);
+                int maxLengthString = s.length();
+                int movement = Integer.parseInt(s.substring(1, maxLengthString));
 
 
-            if (direction == 'L') {
+                if (direction == 'L') {
 
                 for ( int j1 = 0; j1 < movement; j1++) {
                     xCoordWire2 -= 1;
                     Position Wire2 = new Position(xCoordWire2, yCoordWire2);
-                    wire2.put(Wire2, j1);
+                    wire2.put(Wire2, stepsWire2);
+                    stepsWire2++;
                 }
             }
 
@@ -98,7 +104,8 @@ public class Day03 extends Solution {
                 for ( int j1 = 0; j1 < movement; j1++) {
                     xCoordWire2 += 1;
                     Position Wire2 = new Position(xCoordWire2, yCoordWire2);
-                    wire2.put(Wire2, j1);
+                    wire2.put(Wire2, stepsWire2);
+                    stepsWire2++;
                 }
             }
 
@@ -107,7 +114,8 @@ public class Day03 extends Solution {
                 for ( int j1 = 0; j1 < movement; j1++) {
                     yCoordWire2 -= 1;
                     Position Wire2 = new Position(xCoordWire2, yCoordWire2);
-                    wire2.put(Wire2, j1);
+                    wire2.put(Wire2, stepsWire2);
+                    stepsWire2++;
                 }
 
             }
@@ -117,20 +125,29 @@ public class Day03 extends Solution {
                 for ( int j1 = 0; j1 < movement; j1++) {
                     yCoordWire2 += 1;
                     Position Wire2 = new Position(xCoordWire2, yCoordWire2);
-                    wire2.put(Wire2, j1);
+                    wire2.put(Wire2, stepsWire2);
+                    stepsWire2++;
                 }
 
             }
 
         }
-
+            b = 1000000;
         for (Position position : wire1.keySet()) {
             if (wire2.containsKey(position)) {
                 samePositions.add(position);
-                System.out.println("gelijk");
+
+                Integer steps = wire2.get(position) + wire1.get(position);
+                System.out.println(steps);
+                if (steps < b){
+                    b = steps;
+                }
+
             }
         }
         a = samePositions.stream()
                 .mapToLong(Position::distanceOrigin).min().orElse(69);
+
+
     }
 }
