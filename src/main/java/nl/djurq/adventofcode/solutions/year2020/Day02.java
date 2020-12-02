@@ -25,7 +25,7 @@ public class Day02 extends Solution {
     @Override
     protected void run(List<String> input) {
         for (int i = 0; i < input.size(); i++) {
-            String[] parts = input.get(i).split(":|[-]");
+            String[] parts = input.get(i).split(":");
             String password = parts[1];
             String[] minMaxLetter = parts[0].split(" ");
             char letter = minMaxLetter[1].charAt(0);
