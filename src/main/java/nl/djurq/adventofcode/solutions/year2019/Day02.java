@@ -24,7 +24,6 @@ public class Day02 extends Solution {
         int primaryNumber = 19690720;
         String OpCode = (String) input.get(0);
         String[] OpCodeStringArray = OpCode.split(",");
-
         OpCodeStringArray[1] = "12";
         OpCodeStringArray[2] = "2";
         for (int d = 0; d < 99; d++) {
@@ -52,7 +51,7 @@ public class Day02 extends Solution {
                 }
 
                 a = OpIntArray[0];
-                if ( a == primaryNumber){
+                if (a == primaryNumber){
                     b = (100 * noun) + verb;
                 }
             }
