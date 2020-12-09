@@ -37,7 +37,6 @@ public class Day09 extends Solution {
                         break ValidNumber;
                     }
                 }
-
             }
             if (!goodNumber){
                 a = num;
@@ -46,5 +45,44 @@ public class Day09 extends Solution {
             XMASNumbers.remove(0);
             XMASNumbers.add(num);
         }
+
+        List<Long> continuesNumbers = new ArrayList<>();
+        FoundWeaknes:for (int i = 0; i < input.size(); i++) {
+            long num1 = Long.parseLong(input.get(i));
+            long sum = num1;
+            continuesNumbers.add(num1);
+
+            for (int i1 = i+1; i1 < input.size(); i1++) {
+                long num2 = Long.parseLong(input.get(i1));
+                sum += num2;
+                continuesNumbers.add(num2);
+                if (sum > a){
+                    break;
+                }
+                if (sum == a){
+                    long maxValue = continuesNumbers.get(0);
+                    for (int j = 1; j < continuesNumbers.size(); j++) {
+                        if (continuesNumbers.get(j) > maxValue) {
+                            maxValue = continuesNumbers.get(j);
+                        }
+                    }
+
+                    long minValue = continuesNumbers.get(0);
+                    for (int k = 1; k < continuesNumbers.size(); k++) {
+                        if (continuesNumbers.get(k) < minValue) {
+                            minValue = continuesNumbers.get(k);
+                        }
+                    }
+                    b = maxValue + minValue;
+                    break FoundWeaknes;
+                }
+            }
+            for (Long continuesNumber : continuesNumbers) {
+                System.out.println(continuesNumber);
+            }
+            System.out.println();
+            continuesNumbers.clear();
+        }
+        
     }
 }
