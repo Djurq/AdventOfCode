@@ -1,12 +1,11 @@
 package nl.djurq.adventofcode.solutions.year2020;
 
+import com.google.common.collect.HashBiMap;
 import lombok.Getter;
 import nl.underkoen.adventofcode.solutions.Solution;
 import org.jgrapht.Graph;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,46 +20,42 @@ public class Day07 extends Solution {
         return new long[]{};
     }
 
+    public void loop(String tas) {
+
+    }
+
     @Override
     protected void run(List<String> input) {
-        input.add("");
-        ArrayList<String> bags = new ArrayList<>();
-        ArrayList<String> alreadyCheckedBags = new ArrayList<>();
+        Map<String, List<String>> bags = new HashMap<>();
+        List<String> bagWithShinyGold = new ArrayList<>();
+        List<String> alreadyCheckedBags = new ArrayList<>();
 
         for (String s : input) {
-            Pattern pattern1 = Pattern.compile("(\\d shiny gold)");
-            Matcher matcher1 = pattern1.matcher(s);
-            boolean matchFound = matcher1.find();
-            if (matchFound) {
-                a++;
-                String[] bag = (s.split("bags", 2));
-                String bag2 = bag[0];
-                bags.add(bag2);
-            }
-        }
-        System.out.println(bags);
-
-        String removeBag = "";
-        String addBag = "";
-        String[] arrayBag = new String[0];
-        while (!bags.isEmpty()) {
-            for (String s : input) {
-                for (int i = 0, bagsSize = bags.size(); i < bagsSize; i++) {
-                    String bag = bags.get(i);
-                    Pattern pattern1 = Pattern.compile("(\\d "+bag+")");
-                    Matcher matcher1 = pattern1.matcher(s);
-                    boolean matchFound = matcher1.find();
-                    if (matchFound && !alreadyCheckedBags.contains(bag)) {
-                        removeBag = bag;
-                        alreadyCheckedBags.add(bag);
-                        String[] bag3 = (s.split(" bags?,? ?\\.?(?:contain )?"));
-                        a++;
-                        bags.add(bag3[0]);
-                        bags.remove(removeBag);
-                    }
+            String[] bag = s.split(" bags?,? ?\\.?(?:contain )?");
+            ArrayList<String> otherBags1 = new ArrayList<>();
+            for (int i = 1; i < bag.length; i++) {
+                if (bag[0].equals("shiny gold")) {
+                    continue;
                 }
-                System.out.println(bags);
+                if (bag[i].equals("no other")) {
+                    otherBags1.add(bag[i]);
+                } else {
+                    otherBags1.add(bag[i].substring(2));
+                }
+                bags.put(bag[0], otherBags1);
             }
         }
+
+        for (Map.Entry<String, List<String>> colorSet : bags.entrySet()) {
+            for (String s : colorSet.getValue()) {
+                if (s.equals("shiny gold") && !bagWithShinyGold.contains(colorSet.getKey())) {
+                    alreadyCheckedBags.add(colorSet.getKey());
+                    bagWithShinyGold.add(colorSet.getKey());
+                    a += 1;
+                }
+            }
+        }
+
     }
 }
+
